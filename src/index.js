@@ -1,4 +1,5 @@
 require('dotenv').config();
+console.log('Token present:', !!process.env.DISCORD_TOKEN);
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
