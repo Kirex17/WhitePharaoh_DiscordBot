@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log('Token present:', !!process.env.DISCORD_TOKEN);
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
@@ -19,6 +18,7 @@ const commands = new Map();
 for (const file of fs.readdirSync(path.join(__dirname, 'commands')).filter(f => f.endsWith('.js'))) {
     const command = require(`./commands/${file}`);
     commands.set(command.data.name, command);
+    console.log(command.data.namem, ' loaded!');
 }
 
 client.once('ready', async () => {
@@ -50,10 +50,4 @@ client.on('messageCreate', async (message) => {
 client.on('error', console.error);
 process.on('unhandledRejection', console.error);
 
-console.log('Calling login...');
-client.login(process.env.DISCORD_TOKEN)
-    .then(() => console.log('Login resolved'))
-    .catch(err => console.error('Login failed:', err));
-
-const http = require('http');
-http.createServer((_, res) => res.end('OK')).listen(process.env.PORT || 3000);
+client.login(process.env.DISCORD_TOKEN).catch(console.error);
