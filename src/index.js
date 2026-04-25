@@ -16,9 +16,13 @@ const client = new Client({
 
 const commands = new Map();
 for (const file of fs.readdirSync(path.join(__dirname, 'commands')).filter(f => f.endsWith('.js'))) {
-    const command = require(`./commands/${file}`);
-    commands.set(command.data.name, command);
-    console.log(command.data.name, ' loaded!');
+    try {
+        const command = require(`./commands/${file}`);
+        commands.set(command.data.name, command);
+        console.log(command.data.name, 'loaded!');
+    } catch (err) {
+        console.error(`Failed to load ${file}:`, err);
+    }
 }
 
 client.once('clientReady', async () => {
