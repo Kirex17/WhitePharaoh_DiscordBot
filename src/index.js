@@ -21,7 +21,7 @@ for (const file of fs.readdirSync(path.join(__dirname, 'commands')).filter(f => 
     console.log(command.data.name, ' loaded!');
 }
 
-client.once('ready', async () => {
+client.once('clientReady', async () => {
     const rest = new REST().setToken(process.env.DISCORD_TOKEN);
     await rest.put(
         Routes.applicationCommands(client.user.id),
