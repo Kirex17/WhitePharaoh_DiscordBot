@@ -47,7 +47,10 @@ client.on('messageCreate', async (message) => {
     await message.reply(response);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.on('error', console.error);
+process.on('unhandledRejection', console.error);
+
+client.login(process.env.DISCORD_TOKEN).catch(console.error);
 
 const http = require('http');
 http.createServer((_, res) => res.end('OK')).listen(process.env.PORT || 3000);
