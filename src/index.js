@@ -2,7 +2,8 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
-const { responses } = require('../config.json');
+const { responses, triggers } = require('../config.json');
+const { checkTriggers } = require('./triggers');
 
 const client = new Client({
     intents: [
@@ -42,6 +43,12 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+
+    const trigger = checkTriggers(message, triggers);
+    if (trigger) {
+        await message.reply(trigger.response);
+        return;
+    }
 
     const pinged = message.mentions.has(client.user);
     const replied = message.mentions.repliedUser?.id === client.user.id;

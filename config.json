@@ -1,4 +1,9 @@
 {
+    "triggers": [
+        { "contains": "good morning", "response": "rise and grind" },
+        { "contains": "good night", "response": "sleep tight don't let the bedbugs bite" },
+        { "contains": "females", "response": "don't call them females bro." }
+    ],
     "responses": [
         "This shit ain't nothin' to me, man",
         "I have no sympathy, I live for this shit",
